@@ -1,0 +1,8 @@
+  --colorBackground: black;
+  --colorTitle: wheat;
+  --colorText: rgb(95, 67, 14);
+  --colorComponents: rgba(29, 85, 3, 0.836);
+  --colorWin:rgb(16, 109, 16);
+  --colorLost: rgb(136, 16, 16);
+  --colorPostponed: rgb(18, 18, 97);
+  
