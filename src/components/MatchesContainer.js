@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ImageBackground,SafeAreaView, ScrollView } from "react-native";
 import { Image } from "react-native-elements";
 import { FlatList} from "react-native-gesture-handler";
 import { Picker } from "@react-native-picker/picker";
@@ -59,21 +59,23 @@ const MatchesContainer = ({matches}) => {
         case "Country":
             matches.sort((a,b) => (a.country > b.country) ? 1 : ((b.country > a.country) ? -1 : 0))
             break
-        case "Playing Hour":
-            matches.sort((a,b) => (a.playing_hour > b.playing_hour) ? 1 : ((b.playing_hour > a.playing_hour) ? -1 : 0))
-            break
-    }
-
-    const changeActivePage = (increment) => {
-        if ((activePage + increment) > 0 && (activePage + increment) < totalPages + 1){
-            setActivePage(activePage + increment)
-        }
-    }
-
-    let perPageMatches = matches.slice((activePage-1)*10, (activePage-1)*10 + 9)
-
+            case "Playing Hour":
+                matches.sort((a,b) => (a.playing_hour > b.playing_hour) ? 1 : ((b.playing_hour > a.playing_hour) ? -1 : 0))
+                break
+            }
+            
+            const changeActivePage = (increment) => {
+                if ((activePage + increment) > 0 && (activePage + increment) < totalPages + 1){
+                    setActivePage(activePage + increment)
+                }
+            }
+            
+            let perPageMatches = matches.slice((activePage-1)*10, (activePage-1)*10 + 9)
+            
     return(
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
+            <ScrollView>
+
                 <View style={styles.imagesContainer}>
                     <Image
                         source={require('../assets/images/1x2Image.png')}
@@ -93,8 +95,8 @@ const MatchesContainer = ({matches}) => {
 
                 {matchesToRender == '' ? 
                     <Text style={styles.title}>Select a category from above</Text>
-                :
-                    <>
+                    :
+                    <ImageBackground source={require('../assets/images/papirusImage.png')} resizeMode="cover" style={styles.backgroundImage}>
                         <View style={styles.headerContainer}>
                                 <View style={styles.paginationContainer}>
                                     <AntDesign name="left" size={20} color="wheat" onPress={() => changeActivePage(-1)}/>
@@ -119,15 +121,15 @@ const MatchesContainer = ({matches}) => {
                                         <Picker.Item style={styles.pickerLabel} label="Country" value="Country" />
                                     </Picker>
                                     :
-                                        <Picker
-                                        style={styles.picker}
-                                        selectedValue={sort}
-                                        dropdownIconColor={"wheat"}
-                                        color={"rgb(95, 67, 14)"}
-                                        mode="dropdown"
-                                        onValueChange={(itemValue, itemIndex) =>
-                                            setSort(itemValue)
-                                        }>
+                                    <Picker
+                                    style={styles.picker}
+                                    selectedValue={sort}
+                                    dropdownIconColor={"wheat"}
+                                    color={"rgb(95, 67, 14)"}
+                                    mode="dropdown"
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        setSort(itemValue)
+                                    }>
                                         <Picker.Item style={styles.pickerLabel} label="Playing Hour" value="Playing Hour" />
                                         <Picker.Item style={styles.pickerLabel} label="Win Chance" value="Win Chance" />
                                         <Picker.Item style={styles.pickerLabel} label="Odd" value="Odd" />
@@ -137,12 +139,13 @@ const MatchesContainer = ({matches}) => {
                                 </View>
                         </View>
                         <FlatList
-                            ListHeaderComponent={
-                                <></>
-                            }
                             data={perPageMatches}
                             keyExtractor={(match) => match.id}
-                            nestedScrollEnabled
+                            scrollEnabled={false}
+                            ListHeaderComponent={
+                                <>
+                                </>
+                            }
                             renderItem={({item}) => {
                                 return(
                                     <Match
@@ -162,17 +165,20 @@ const MatchesContainer = ({matches}) => {
                                     <View style={{height:320}}/>
                                 }
                                 
-                        />  
-                     </>
-        
-            }
-                            </View>
-                            )
-                        }
+                        />
+                    </ImageBackground>}
+                </ScrollView>
+        </SafeAreaView>
+)}
 
 const styles = StyleSheet.create({
     container:{
         marginVertical:10,
+        flex:1
+    },
+    backgroundImage:{
+        flex: 1,
+        justifyContent: 'center',
     },
     title:{
         textAlign:"center",

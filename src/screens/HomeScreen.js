@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
-import { View, StyleSheet, Text, Button, Linking, SafeAreaView, ScrollView, StatusBar} from "react-native";
+import { View, StyleSheet, Text, Linking, SafeAreaView, ScrollView} from "react-native";
 import { StatisticsContext } from "../context/statistics.context";
 import { Image } from "react-native-elements";
 import CustomButton from "../components/CustomButton";
 import { LinearGradient } from "expo-linear-gradient";
 import VideoComponent from "../components/VideoSysytem";
 import LogoVideoComponent from "../components/MainLogoVideo";
-
 
 const HomeScreen = ({ navigation }) => {
     const {statistics} = useContext(StatisticsContext)
@@ -107,7 +106,6 @@ const HomeScreen = ({ navigation }) => {
                     <Image
                         source={require('../assets/images/transparency-photo.png')}    
                         style={styles.transparencyImage}
-                        onPress={() => navigation.navigate("Tomorrow Predictions")}  
                         >
                     <Text style={styles.subTitle}>We provide 100% full transparency of our results, either is lost or win with 1.01 odd, the data is available and used for further analyse.</Text>
                     <CustomButton title={"See All Results"} navigation={navigation} routeTo={"Result History"}/>
