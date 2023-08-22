@@ -6,6 +6,9 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react";
 import MatchStatistics from "./MatchStatistics";
 import { convertToUTC } from "../config/helpers";
+import xMark from '../assets/images/XMark.png'
+import checkMark from '../assets/images/checked.png'
+import postponed from '../assets/images/postponedImage.png'
 
 const Match = ({league, country, homeTeam, awayTeam, date, hour, prediction, odd, result}) => {
     let colorToRender
@@ -66,8 +69,7 @@ const Match = ({league, country, homeTeam, awayTeam, date, hour, prediction, odd
                 }
                 </View>
             </View>
-            <View style={{backgroundColor:`${colorToRender}`}}>
-
+            <View>
                 <View style={styles.dateGameContainer}>
                     
                     <View style={styles.time}>
@@ -81,7 +83,10 @@ const Match = ({league, country, homeTeam, awayTeam, date, hour, prediction, odd
                     </View>
 
                     <View>
-                        <Text style={styles.prediction}>{result}</Text>
+                        {result === "WIN" ? <Image source={checkMark} style={styles.resultImage}/>:<></>}
+                        {result === "LOST" ? <Image source={xMark} style={styles.resultImage}/>:<></>}
+                        {result === "POSTPONED" ? <Image source={postponed} style={{...styles.resultImage, width:70}}/>:<></>}
+                        
                         {
                             odd ? 
                             <Text style={styles.prediction}>odd:{odd}</Text>
@@ -100,21 +105,20 @@ const Match = ({league, country, homeTeam, awayTeam, date, hour, prediction, odd
 const styles = StyleSheet.create({
     container:{
         marginBottom:20,
+        borderBottomColor:"black",
     },
     dateGameContainer:{
         marginVertical:5,
         flexDirection:"row",
+        borderBottomWidth:0.2,
+        borderBottomColor:"black",
     },
     countryLeageContainer:{
+        padding:5,
         color:"wheat",
         textAlign:"center",
         fontWeight:"bold",
-        backgroundColor:"grey",
         fontSize:13,
-        padding:4,
-        paddingHorizontal:14,
-        borderTopRightRadius:30,
-        borderTopLeftRadius:30,
         alignSelf: 'center',
     },
     title:{
@@ -164,6 +168,13 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         alignItems:"center",
         flex:1
+    },
+    resultImage:{
+        width:30,
+        height:30,
+        position:"absolute",
+        right:10,
+        bottom:10,
     }
 })
 

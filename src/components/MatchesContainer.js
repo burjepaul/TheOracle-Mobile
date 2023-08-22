@@ -97,15 +97,7 @@ const MatchesContainer = ({matches}) => {
                     <Text style={styles.title}>Select a category from above</Text>
                     :
                     <ImageBackground source={require('../assets/images/papirusImage.png')} resizeMode="cover" style={styles.backgroundImage}>
-                        <View style={styles.headerContainer}>
-                                <View style={styles.paginationContainer}>
-                                    <AntDesign name="left" size={20} color="wheat" onPress={() => changeActivePage(-1)}/>
-                                    <Text style={styles.page}>Page {activePage} / {totalPages}</Text>
-                                    <AntDesign name="right" size={20} color="wheat" onPress={() => changeActivePage(+1)}/>
-                                </View>
-
-                                <View style={{flexDirection:'row', marginRight:-25}}>
-                                    <Text style={{color:'wheat', marginTop:20, marginRight:-30}}>Sort By:</Text>
+                                    <Text style={{color:'wheat', marginTop:"15%", marginRight:30, alignSelf:"center"}}>Sort By:</Text>
                                     {
                                         matchesToRender == "Goals" ?
                                         <Picker
@@ -136,8 +128,7 @@ const MatchesContainer = ({matches}) => {
                                         <Picker.Item style={styles.pickerLabel} label="Country" value="Country" />
                                     </Picker>
                                     }
-                                </View>
-                        </View>
+                
                         <FlatList
                             data={perPageMatches}
                             keyExtractor={(match) => match.id}
@@ -166,6 +157,11 @@ const MatchesContainer = ({matches}) => {
                                 }
                                 
                         />
+                        <View style={styles.paginationContainer}>
+                            <AntDesign name="left" size={20} color="wheat" onPress={() => changeActivePage(-1)}/>
+                            <Text style={styles.page}>Page {activePage} / {totalPages}</Text>
+                            <AntDesign name="right" size={20} color="wheat" onPress={() => changeActivePage(+1)}/>
+                        </View>
                     </ImageBackground>}
                 </ScrollView>
         </SafeAreaView>
@@ -189,9 +185,8 @@ const styles = StyleSheet.create({
     },
     paginationContainer:{
         flexDirection:'row',
-        justifyContent:"space-between",
-        marginLeft:65,
-        marginTop:16
+        justifyContent:"center",
+        bottom:200,
     },
     page:{
         textAlign:"center",
@@ -201,6 +196,7 @@ const styles = StyleSheet.create({
         fontWeight:"bold",
     },
     headerContainer:{
+        paddingTop:50,
         flexDirection:"row",
         justifyContent:"space-between",
         marginVertical:20,
@@ -208,12 +204,11 @@ const styles = StyleSheet.create({
     picker:{
         color:'wheat',
         fontWeight:"bold",
-        backgroundColor:"rgb(95, 67, 14)",
-        alignSelf:"flex-end",
         fontSize:13,
         borderRadius:115,
         alignSelf: 'center',
-        width:160,
+        backgroundColor:"rgba(0, 0, 0, 0.7)",
+        width:220,
         transform: [
             { scaleX: 0.6 }, 
             { scaleY: 0.6 },
@@ -222,7 +217,8 @@ const styles = StyleSheet.create({
     pickerLabel:{
         color:'wheat',
         fontWeight:"bold",
-        backgroundColor:"rgb(95, 67, 14)",
+        backgroundColor:"rgba(0, 0, 0, 0.7)",
+        fontSize:20
     },
     imagesContainer:{
         flexDirection:'row',
