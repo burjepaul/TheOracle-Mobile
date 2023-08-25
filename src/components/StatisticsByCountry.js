@@ -8,12 +8,14 @@ import createStatisticsAllLeagusByCountry from '../config/helpers'
 const StatisticsByCountry = ({statistics}) => {
     const countries = [...new Set(statistics.map(a => a.country))]
 
+    console.log(statistics.find((statisticEntry) => statisticEntry.country === "Algeria" && statisticEntry.league === "Ligue 2"))
+
     const [leagueStats, setLeagueStats] = useState()
 
     const [selectedCountry, setselectedCountry] = useState(countries[0])
     const [selectedLeague, setSelectedLeague] = useState(statistics[0].league)
     const [selectedGameType, setSelectedGameType] = useState("All Games")
-
+    
     let countryAndLeaguesCollection = {}
     statistics.forEach(element => {
         if (!countryAndLeaguesCollection[element.country]){
@@ -28,9 +30,11 @@ const StatisticsByCountry = ({statistics}) => {
         }
     });
 
+    console.log(statistics.find((statisticEntry) => statisticEntry.country === "Algeria"))
+
     useEffect(() => {
         if (statistics){
-            const data = statistics.find((statisticEntry) => (statisticEntry.country === selectedCountry) && (statisticEntry.league === selectedLeague))
+            const data = statistics.find((statisticEntry) => statisticEntry.country === selectedCountry && statisticEntry.league === selectedLeague)
             if (selectedLeague === "All"){
                 let dataTemplate = createStatisticsAllLeagusByCountry(statistics, selectedCountry)
                 setLeagueStats(dataTemplate)
