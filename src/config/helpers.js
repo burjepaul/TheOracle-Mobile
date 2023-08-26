@@ -1,5 +1,6 @@
 export const createStatisticsAllLeagusByCountry = (statistics, country) =>{
     //Sums all leagues from a specific country and creates a data template to match the others datas from DB 
+    console.log(country)
     const allDataForCountry = statistics.filter((statisticEntry) => statisticEntry.country === country)
     const sum_total_games = allDataForCountry.reduce((acc, obj) => {
         return acc + obj.total_games

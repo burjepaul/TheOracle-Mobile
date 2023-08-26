@@ -3,12 +3,10 @@ import { View, StyleSheet, Text } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import RadioButtonsGroup from "./RadioButtonsGoup";
 import CircularBar from "./CircularBar";
-import createStatisticsAllLeagusByCountry from '../config/helpers'
+import {createStatisticsAllLeagusByCountry} from '../config/helpers'
 
 const StatisticsByCountry = ({statistics}) => {
     const countries = [...new Set(statistics.map(a => a.country))]
-
-    console.log(statistics.find((statisticEntry) => statisticEntry.country === "Algeria" && statisticEntry.league === "Ligue 2"))
 
     const [leagueStats, setLeagueStats] = useState()
 
@@ -30,20 +28,18 @@ const StatisticsByCountry = ({statistics}) => {
         }
     });
 
-    console.log(statistics.find((statisticEntry) => statisticEntry.country === "Algeria"))
-
     useEffect(() => {
         if (statistics){
             const data = statistics.find((statisticEntry) => statisticEntry.country === selectedCountry && statisticEntry.league === selectedLeague)
             if (selectedLeague === "All"){
                 let dataTemplate = createStatisticsAllLeagusByCountry(statistics, selectedCountry)
                 setLeagueStats(dataTemplate)
+            }
+            else{
+                setLeagueStats(data)
+            } 
         }
-        else{
-            setLeagueStats(data)
-        }  
-    }
-},[selectedCountry,selectedLeague, statistics])
+    },[selectedCountry,selectedLeague, statistics])
 
     let leagueStatsToForward = {...leagueStats}
 
